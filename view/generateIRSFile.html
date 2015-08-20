@@ -1,0 +1,570 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en">
+<head>
+    <title>Novus MEC Reporting</title>
+    <meta charset="utf-8" />
+    <link rel="stylesheet" href="../css/bootstrap.min.css">
+    <link href="../css/Site.css" rel="stylesheet">
+
+    <script src="../js/lib/jquery.min.js"></script>
+    <script src="../js/lib/bootstrap.min.js"></script>
+    <script type="text/javascript" src="../js/lib/knockout-3.1.0.js"></script>
+    <script type="text/javascript" src="../js/Index.js"></script>
+    <script type="text/javascript" src="../js/IRSFile.js"></script>
+	<style>
+	.panel{
+		width: 95%;
+	}
+	.table-fixed thead {
+		width: 100%;
+	}
+	.table-fixed tbody {
+		 height: 230px;
+		 overflow-y: auto;
+		 width: 100%;
+	}
+	.table-fixed thead, .table-fixed tbody, .table-fixed tr, .table-fixed td, .table-fixed th {
+  display: block;
+}
+.table-fixed tbody td, .table-fixed thead > tr> th {
+  float: left;
+  border-bottom-width: 0;
+}
+
+.faStyle{
+border:1px solid #999999;
+padding:4px;
+margin:5px;
+width:300px;
+}
+
+.legendStyle{
+color:#888888;
+background-color:transparent;
+}
+
+legend{
+width:auto;
+border-bottom:0px;
+}
+</style>
+</head>
+<body>
+    <div id="top">
+        <div class="nav navbar pull-left">
+            <p style="font-size:20px;">Reporting Minimum Essential Coverage</p>
+        </div>
+        <div class="nav navbar pull-right">
+            Mr.John Doe <button class="glyphicon glyphicon-off"></button>
+        </div>
+    </div>
+    <div id="main">
+        <div class="tab">
+            <table class="table">
+                <tr style="background-color:#edf0f5;text-align:center"><td width="10%"><a href="#">Home</a></td><td width="10%"><a href="#">1095-B</a></td><td width="10%"><a href="#">1095-C</a></td></tr>
+            </table>
+        </div>
+
+        <table class="table">
+            <tbody><tr style="background-color:white;text-align:center">
+                <td width="10%"></td>
+                <td width="10%">
+				<a href="createBatch.html">Create Batch</a><br>
+				<a href="viewBatch.html">View Created batch</a><br>
+				<a href="generateIRSFile.html">Generate IRS File</a></td>
+                <td width="10%"><a href="#">Create Batch</a><br><a href="#">View Created batch</a><br><a href="#">Generate IRS File</a></td>
+            </tr>
+        </tbody></table>
+    </div>
+    <div class="container" style="border:1px solid grey">
+        <form role="form" class="form-horizontal">
+            <div class="form-group" style="color:white;border:1px solid grey;background-color:#3366FF">
+                <div class="col-sm-3">
+                    <label>1095-B - IRS File - Generate/View</label>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-sm-3">
+                   <div class="input-group">
+				   <span class="input-group-addon">
+        <i class="glyphicon glyphicon-search"></i>
+    </span>
+    <input type="text" class="form-control search-query" placeholder="Search Data in the grid"/>
+    
+</div>
+                </div>
+                <div class="col-sm-3">
+                    <!-- <a href="#" data-toggle="collapse" data-target="#toggleDemo">[-] Advanced Search</a> -->
+					<button type="button" class="btn btn-info" id="click">[-] Advanced Search</button>
+                </div>
+            </div>
+        </form>
+        <div class="container"  style="border:1px solid grey;width:1100px">
+            <div class="collapse" id="toggleDemo">
+                <form role="form" class="form-horizontal" style="font-size:10px">
+
+                    <div class="form-group" style="border:1px solid grey;background-color:white">
+                        <button type="button" class="close" aria-label="Close" id="hide"><span aria-hidden="true">&times;</span></button>
+                        <label> Advanced Search </label>
+                    </div>
+			
+				<div class="col-sm-12">				
+					<div class="col-sm-1">
+						<div class="form-group">
+							<label> Tax Year </label>
+						</div>
+						<div class="form-group">
+							<select>
+								<option value="">2015</option>
+								<option value="">2014</option>
+					  </select>
+						</div>
+					</div>
+					<div class="col-sm-1" style="margin-left:-20px">
+						<div class="form-group">
+							<label> Batch Type </label>
+						</div>
+						<div class="form-group">
+							<select>
+								<option value="">Batch 1</option>
+								<option value="">Batch 2</option>
+					  </select>
+						</div>
+					</div>
+					<div class="col-sm-3" style="margin-left:-40px">
+					<fieldset class="faStyle">
+						<legend style="font-size:10px" class="legendStyle"> Batch Created </legend>
+								<div class="form-group">
+								 <div class="col-sm-6">
+									<label> Date From </label>
+								 </div>
+								 <div class="col-sm-6" style="margin-left:-20px">
+								    <label> Date From </label>
+								 </div>	
+								</div>
+								<div class="form-group">
+								<div class="col-sm-6">
+									<div class="input-group">
+										<input class="input" type="date" value="" style="width:100px;height:20px"/>
+											<span class="input-group-addon">
+											<i class="glyphicon glyphicon-calendar"></i>
+											</span>
+									</div>
+								</div>
+								<div class="col-sm-6">
+									<div class="input-group" style="margin-left:-20px">
+										<input class="input" type="date" value="" style="width:100px;height:20px"/>
+											<span class="input-group-addon">
+											<i class="glyphicon glyphicon-calendar"></i>
+											</span>
+									</div>
+								</div>		
+							</div>
+					</fieldset>	
+					</div>
+					<div class="col-sm-2" style="margin-left:60px">
+						<div class="form-group">
+							<label> Batch Created By </label>
+						</div>
+						<div class="form-group">
+							<div class="input-group">
+								<input class="input" type="text" style="width:100px"/>
+							</div>
+						</div>
+					</div>
+					<div class="col-sm-1" style="margin-left:-65px">
+					<div class="form-group">
+							<label> 1095-B Printed </label>
+						</div>
+						<div class="form-group">
+							<select style="width:70px">
+								<option value=""></option>
+								<option value="">Yes</option>
+								<option value="">No</option>
+					  </select>
+						</div>
+					</div>
+					<div class="col-sm-3" style="margin-left:-25px">
+					<fieldset class="faStyle">
+						<legend style="font-size:10px" class="legendStyle"> 1095-B Printed </legend>
+								<div class="form-group">
+								 <div class="col-sm-6">
+									<label> Date From </label>
+								 </div>
+								 <div class="col-sm-6" style="margin-left:-20px">
+								    <label> Date From </label>
+								 </div>	
+								</div>
+								<div class="form-group">
+								<div class="col-sm-6">
+									<div class="input-group">
+										<input class="input" type="date" value="" style="width:100px;height:20px"/>
+											<span class="input-group-addon">
+											<i class="glyphicon glyphicon-calendar"></i>
+											</span>
+									</div>
+								</div>
+								<div class="col-sm-6">
+									<div class="input-group" style="margin-left:-20px">
+										<input class="input" type="date" value="" style="width:100px;height:20px"/>
+											<span class="input-group-addon">
+											<i class="glyphicon glyphicon-calendar"></i>
+											</span>
+									</div>
+								</div>		
+							</div>
+					</fieldset>	
+					</div>
+					<div class="col-sm-1" style="margin-left:65px">
+					<div class="form-group">
+							<label> 1095 Printed By </label>
+						</div>
+						<div class="form-group">
+							<div class="input-group">
+								<input class="input" type="text"/>
+							</div>
+						</div>
+					</div>
+                   </div>
+					<div class="col-sm-12">		
+						<div class="col-sm-1"></div>
+						<div class="col-sm-1" style="margin-left:-40px">
+							<div class="form-group">
+								<label> Batch Cancelled </label>
+							</div>
+							<div class="form-group">
+								<select style="width:70px">
+									<option value=""></option>
+									<option value="">Yes</option>
+									<option value="">No</option>
+								</select>
+							</div>
+						</div>
+						<div class="col-sm-3" style="margin-left:-20px">
+					<fieldset class="faStyle">
+						<legend style="font-size:10px" class="legendStyle"> Cancelled Date </legend>
+								<div class="form-group">
+								 <div class="col-sm-6">
+									<label> Date From </label>
+								 </div>
+								 <div class="col-sm-6" style="margin-left:-20px">
+								    <label> Date From </label>
+								 </div>	
+								</div>
+								<div class="form-group">
+								<div class="col-sm-6">
+									<div class="input-group">
+										<input class="input" type="date" value="" style="width:100px;height:20px"/>
+											<span class="input-group-addon">
+											<i class="glyphicon glyphicon-calendar"></i>
+											</span>
+									</div>
+								</div>
+								<div class="col-sm-6">
+									<div class="input-group" style="margin-left:-20px">
+										<input class="input" type="date" value="" style="width:100px;height:20px"/>
+											<span class="input-group-addon">
+											<i class="glyphicon glyphicon-calendar"></i>
+											</span>
+									</div>
+								</div>		
+							</div>
+					</fieldset>	
+					</div>
+					<div class="col-sm-2" style="margin-left:70px">
+						<div class="form-group">
+							<label> Cancelled By </label>
+						</div>
+						<div class="form-group">
+							<div class="input-group">
+								<input class="input" type="text" style="width:100px"/>
+							</div>
+						</div>
+					</div>
+					</div>
+					<div class="col-sm-12">
+						<div class="form-group">
+							<div class="col-sm-2"><label>Member Primary ID</label><input type="text"/></div>
+							<div class="col-sm-2"><label>Member SSN</label><input type="text"/></div>
+							<div class="col-sm-2"><label>Member First Name</label><input type="text"/></div>
+							<div class="col-sm-2"><label>Member Last Name</label><input type="text"/></div>
+						</div>
+					</div>
+					<div class="col-sm-12">
+						<div class="form-group">
+                        <div class="col-sm-3">
+
+                        </div>
+                        <div class="col-sm-3">
+                            <button type="submit" class="btn btn-success">Search</button>&nbsp;
+                            <button type="submit" class="btn btn-danger ">Clear</button>
+                        </div>
+                    </div>
+					</div>
+                </form>
+            </div>
+        </div>
+		<form role="form" class="form-horizontal" style="width:1070px;margin-left:35px;margin-top:15px">
+			 <div class="form-group" style="color:white;border:1px solid grey;background-color:#6699FF">
+                <div class="col-sm-6">
+                    <label>Batch Details</label>
+                </div>
+            </div>
+				<div class="form-group">
+                <div class="col-sm-3 pull-left">
+                    <select name="Show" class="input-sm">
+                        <option value="">Show 25</option>
+                        <option value="">Show 50</option>
+                    </select>
+                </div>
+                
+				<div class="col-sm-3 pull-right">
+					<div class="col-sm-2 pull-right">
+					<button type="submit" class="glyphicon glyphicon-cog"/>
+					</div>
+                   <div class="col-sm-2 pull-right">
+					<button type="submit" class="glyphicon glyphicon-export"/>
+					</div>
+					<div class="col-sm-2 pull-right">
+					<button type="submit" class="glyphicon glyphicon-print"/>
+					</div>
+				</div>
+				</br></br>
+				<!-- Modal-->
+				<div class="panel panel-default BatchPreview">
+				 <div id="generateIRS" class="modal fade" role="dialog">
+					<div class="modal-dialog">
+						<div class="modal-content">
+							<div class="modal-header">
+								<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+								<h4 class="modal-title"> Generate IRS File </h4>
+							</div>
+							<div class="modal-body">
+							<form role="form" class="form-horizontal">
+							<div class="container form-group">
+								<label class="col-sm-2">Tax Year</label>
+								<label class="col-sm-2">File Type</label>
+							</div>
+							<div class="container form-group" style="font-size:10px">
+								<label class="col-sm-2">2015</label>
+								<label class="col-sm-2">1095-B</label>
+							</div>
+							<div class="container form-group">
+								<label class="col-sm-2">Tax Year</label>
+							</div>
+							<div class="container form-group">
+								<select class="BatchView">
+									<option value="Original">Original</option>
+									<option value="Correction">Correction</option>
+									<option value="Replacement">Replacement</option>
+									<option value="Test File">Test File</option>
+								</select>
+							</div>
+							<div class="container form-group">
+							<div class="col-sm-2" style="margin-top:75px">
+								<button type="button" class="btn btn-success">Generate File</button>
+							</div>
+							<div class="col-sm-1" style="margin-top:75px">
+								<button type="button" class="btn btn-danger">Clear</button>
+							</div>	
+							</div>
+						</form>
+					</div>
+					<div class="modal-footer">
+				      <div class="col-sm-3">
+						<button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+					  </div>
+					</div>
+				</div>
+			</div>
+    </div>
+	 <div id="IRSFileUpdate" class="modal fade" role="dialog">
+					<div class="modal-dialog">
+						<div class="modal-content">
+							<div class="modal-header">
+								<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+								<h4 class="modal-title"> IRS File Status Update</h4>
+							</div>
+							<div class="modal-body">
+							<form role="form" class="form-horizontal">
+							<div class="container form-group">
+								<label class="col-sm-2">Tax Year</label>
+								<label class="col-sm-2">File Type</label>
+							</div>
+							<div class="container form-group" style="font-size:10px">
+								<label class="col-sm-2">2015</label>
+								<label class="col-sm-2">1095-B</label>
+							</div>
+							<div class="container form-group">
+								<label class="col-sm-2">IRS File Submitted On</label>
+							</div>
+							<div class="container form-group">
+								<div class="input-group col-sm-2">
+										<input class="input" type="date" value="" />
+											<span class="input-group-addon">
+											<i class="glyphicon glyphicon-calendar"></i>
+											</span>
+									</div>
+							</div>
+							<div class="container form-group">
+								<label class="col-sm-2">IRS File Submitted By</label>
+							</div>
+							<div class="container form-group">
+								<div class="input-group">
+									<input class="input" type="text"/>
+								</div>
+							</div>
+							<div class="container form-group">
+								<label class="col-sm-2">IRS File Status</label>
+							</div>
+							<div class="container form-group">
+								<div class="input-group">
+									<input class="input" type="text"/>
+								</div>
+							</div>
+						</form>
+					</div>
+					<div class="modal-footer">
+					 <div class="col-sm-3">
+						<button type="button" class="btn btn-success" >Save</button>
+					</div>
+				    <div class="col-sm-3">
+						<button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+					</div>
+					</div>
+				</div>
+			</div>
+    </div>
+	<div id="vieweBatchLog" class="modal fade" role="dialog">
+					<div class="modal-dialog">
+						<div class="modal-content">
+							<div class="modal-header">
+								<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+								<h4 class="modal-title"> View Batch Log </h4>
+							</div>
+							<div class="modal-body">
+							<form role="form" class="form-horizontal">
+							<div class="container form-group">
+								<label class="col-sm-2">Tax Year</label>
+								<label class="col-sm-2">Batch #</label>
+								<label class="col-sm-2">Batch Created Date</label>
+							</div>
+							<div class="container form-group" style="font-size:10px">
+								<label class="col-sm-2">2015</label>
+								<label class="col-sm-2">12345611</label>
+								<label class="col-sm-2">05/11/2015</label>
+							</div>
+							<div class="col-sm-12">
+								<div class="col-sm-12">
+								<table class="table table-bordered">
+								  <thead>
+									<tr class="active" style="font-size:10px">
+									  <th>seq#</th><th>Action</th><th>Action Date</th><th>Action By</th><th>Comments</th>
+									</tr>
+								  </thead>
+								  </tbody>
+									<tr style="font-size:10px;">
+									  <td>1</td><td>Batch Created</td><td>05/11/2015</td><td>Diane</td><td></td>
+									</tr>
+									<tr style="font-size:10px;">
+									  <td>2</td><td>1095-B Batch Printed</td><td>05/11/2015</td><td>Diane</td><td></td>
+									</tr>
+									<tr style="font-size:10px;">
+									  <td>2</td><td>1095-B Batch Re-Printed</td><td>05/11/2015</td><td>Diane</td><td>Print was not complete</td>
+									</tr>
+									<tr style="font-size:10px;">
+									  <td>3</td><td>IRS File Generated</td><td>05/11/2015</td><td>Diane</td><td></td>
+									</tr>
+									<tr style="font-size:10px;">
+									  <td>3</td><td>IRS File Submitted</td><td>05/11/2015</td><td>Diane</td><td></td>
+									</tr>
+								  </tbody>
+								 </table>
+							</div>
+							</div>
+						</form>
+					</div>
+					<div class="modal-footer">
+				      <div class="col-sm-3">
+						<button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+					  </div>
+					</div>
+				</div>
+			</div>
+    </div>
+	 <div id="closeBatch" class="modal fade" role="dialog">
+					<div class="modal-dialog">
+						<div class="modal-content">
+							<div class="modal-header">
+								<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+								<h4 class="modal-title"> Cancel Batch </h4>
+							</div>
+							<div class="modal-body">
+							<form role="form" class="form-horizontal">
+							<div class="container form-group">
+								<label class="col-sm-2">Tax Year</label>
+								<label class="col-sm-2">Batch #</label>
+								<label class="col-sm-2">Batch Created Date</label>
+							</div>
+							<div class="container form-group" style="font-size:10px">
+								<label class="col-sm-2">2015</label>
+								<label class="col-sm-2">12345611</label>
+								<label class="col-sm-2">05/11/2015</label>
+							</div>
+							<div class="col-sm-12">
+								<label class="col-sm-2">Reason</label>
+							</div>
+							<div class="col-sm-12">
+								<textarea rows="4" cols="50"></textarea>
+							</div>
+						</form>
+					</div>
+					<div class="modal-footer">
+				      <div class="col-sm-3">
+						<button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+					  </div>
+					</div>
+				</div>
+			</div>
+    </div>
+	
+			<!-- End Modal-->
+				<table class="table table-bordered">
+				  <thead>
+					<tr class="active" style="font-size:10px">
+					  <th class="col-sm-1"><input type="checkbox"/></th>
+					  <th class="col-sm-1">Tax Year</th>
+					  <th class="col-sm-1">Batch Type</th>
+					  <th class="col-sm-1">Batch#</th>
+					  <th class="col-sm-1">Total Members</th>
+					  <th class="col-sm-1">Total Dependents</th>
+					  <th class="col-sm-1">Batch Created Date</th>
+					  <th class="col-sm-1">Batch Created By</th>
+					  <th class="col-sm-1">1095-B Printed</th>
+					  <th class="col-sm-1">IRS File Generated</th>
+					  <th class="col-sm-1">IRS File Submitted</th>
+					  <th class="col-sm-1">Batch Cancelled</th>
+					  <th class="col-sm-1">Action</th>
+					</tr>
+				  </thead>
+				  <tbody>
+					<tr style="font-size:10px;">
+					  <td class="col-sm-1"><input type="checkbox"/></td><td class="col-sm-1">2015</td><td class="col-sm-1">New</td><td class="col-sm-1">12345611</td><td class="col-sm-1">2500</td><td class="col-sm-1">500</td><td class="col-sm-1">05/11/2015</td><td class="col-sm-1">Diane</td><td class="col-sm-2">Yes</td><td class="col-sm-1">No</td><td class="col-sm-1">No</td><td class="col-sm-1">No</td><td class="col-sm-1">
+					  <select class="batchIRSView">
+						   <option value="generateirsile">Generate IRS File</option>
+							<option value="viewbatchdetails">View Batch Details</option>
+							<option value="updateIRSfilestatus">Update IRS File Status</option>
+							<option value="cancelBatch">Cancel Batch</option>
+							<option value="viewbatchlog">View Batch Log</option>
+					  </select>
+					  </td>
+					</tr>
+				  </tbody>
+				</table>
+				</div>
+			</div>
+			
+		</form>
+    </div>
+</body>
+</html>

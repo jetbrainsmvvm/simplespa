@@ -1,0 +1,80 @@
+<html lang="en">
+<head>
+<title>KnockOut JS</title>
+<meta charset='utf-8' />
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap-theme.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+    <script src="http://ajax.aspnetcdn.com/ajax/knockout/knockout-2.2.1.js"></script>
+    <!-- <link href="Contents/Site.css" rel="stylesheet" /> -->
+    <script type="text/javascript" src="Index.js"></script>
+</head>
+<body>
+		<div class="form-group">
+			<div class="container">
+				<div class="row">
+						<table class="table table-fixed">
+							<thead>
+								<tr class="active" style="font-size:10px">
+									<th class="col-sm-2">Member Names</th>
+									<th class="col-sm-1">Primary ID</th>
+									<th class="col-sm-1">SSN</th>
+									<th class="col-sm-1">DOB</th>
+									<th class="col-sm-1">Address Line1</th>
+									<th class="col-sm-1">Address Line2</th>
+									<th class="col-sm-1">City</th>
+									<th class="col-sm-1">State</th>
+									<th class="col-sm-1">Zipcode</th>
+									<th class="col-sm-2">Action</th>
+								</tr>
+							</thead>
+							<tbody foreach: members>
+								<tr style="font-size:10px;">
+									<td class="col-sm-2" data-bind="text: memberDetails.MemberName"></td>
+									<td class="col-sm-1" data-bind="text: memberDetails.PrimaryID"></td>
+									<td class="col-sm-1" data-bind="text: memberDetails.SSN"></td>
+									<td class="col-sm-1" data-bind="text: memberDetails.DOB"></td>
+									<td class="col-sm-1" data-bind="text: memberDetails.Addressline1"></td>
+									<td class="col-sm-1" data-bind="text: memberDetails.Addressline2"></td>
+									<td class="col-sm-1" data-bind="text: memberDetails.City"></td>
+									<td class="col-sm-1" data-bind="text: memberDetails.State"></td>
+									<td class="col-sm-1" data-bind="text: memberDetails.Zipcode"></td>
+									<td class="col-sm-2">
+										<select id="dropDown" data-bind="options: memberDetails.availableActions, optionsText:'Name', optionsValue: 'Value',event: {change: $root.memberDetails.showExclude}"></select>
+									</td>
+									<!-- <td class="col-sm-2">
+										<select>
+											<option value="Preview">Preview 1095-B</option>
+											<option value="Exclude">Exclude from Batch</option>
+										</select>
+									</td> -->
+								</tr>
+							</tbody>
+						</table>
+						<table>
+    <thead>
+        <tr><th>First name</th><th>Last name</th></tr>
+    </thead>
+    <tbody data-bind="foreach: people">
+        <tr>
+            <td data-bind="text: firstName"></td>
+            <td data-bind="text: lastName"></td>
+        </tr>
+    </tbody>
+</table>
+ 
+<script type="text/javascript">
+    ko.applyBindings({
+        people: [
+            { firstName: 'Bert', lastName: 'Bertington' },
+            { firstName: 'Charles', lastName: 'Charlesforth' },
+            { firstName: 'Denise', lastName: 'Dentiste' }
+        ]
+    });
+</script>
+				</div>
+			</div>
+		</div>
+</body>
+</html>

@@ -1,0 +1,470 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en">
+<head>
+    <title>Novus MEC Reporting</title>
+    <meta charset="utf-8"/>
+    <link rel="stylesheet" href="../css/bootstrap.min.css">
+    <link href="../css/Site.css" rel="stylesheet">
+
+    <script src="../js/lib/jquery.min.js"></script>
+    <script src="../js/lib/bootstrap.min.js"></script>
+    <script type="text/javascript" src="../js/lib/knockout-3.1.0.js"></script>
+    <script type="text/javascript" src="../js/Index.js"></script>
+
+</head>
+<body>
+<div id="top">
+    <div class="nav navbar pull-left">
+        <p style="font-size:20px;">Reporting Minimum Essential Coverage</p>
+    </div>
+    <div class="nav navbar pull-right">
+        Mr.John Doe
+        <button class="glyphicon glyphicon-off" onclick="location.href='../authentication.html'"></button>
+    </div>
+</div>
+<div id="main">
+    <div class="tab">
+        <table class="table">
+            <tr style="background-color:#edf0f5;text-align:center">
+                <td width="10%"><a href="#">Home</a></td>
+                <td width="10%"><a href="#">1095-B</a></td>
+                <td width="10%"><a href="#">1095-C</a></td>
+            </tr>
+        </table>
+    </div>
+
+    <table class="table">
+        <tbody>
+        <tr style="background-color:white;text-align:center">
+            <td width="10%"></td>
+            <td width="10%">
+                <a href="createBatch.html">Create Batch</a><br>
+                <a href="viewBatch.html">View Created batch</a><br>
+                <a href="generateIRSFile.html">Generate IRS File</a></td>
+            <td width="10%"><a href="#">Create Batch</a><br><a href="#">View Created batch</a><br><a href="#">Generate
+                IRS File</a></td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+<div class="container" style="border:1px solid grey">
+<form role="form" class="form-horizontal">
+    <div class="form-group" style="color:white;border:1px solid grey;background-color:#3366FF">
+        <div class="col-sm-3">
+            <label>1095-B Create Batch </label>
+        </div>
+    </div>
+    <div class="form-group">
+        <div class="col-sm-2"><label>Tax Year</label></div>
+        <div class="col-sm-2">
+            <select name="Year" class="input-sm" data-bind="options: availableYears"> </select>
+        </div>
+        <div class="col-sm-2"><label>Batch Type</label></div>
+        <div class="col-sm-2">
+            <label><input type="checkbox" value="new" checked="checked" class="checkbox-inline"/>New</label><br/>
+            <label><input type="checkbox" value="Corrected" class="checkbox-inline"/>Corrected</label>
+        </div>
+        <div class="col-lg-offset-4">
+            <button class="btn btn-success">Load Member Details</button>
+        </div>
+    </div>
+    <div class="form-group">
+        <div class="col-sm-3">
+            <div class="input-group">
+                        <span class="input-group-addon">
+                            <i class="glyphicon glyphicon-search"></i>
+                        </span>
+                <input type="text" class="form-control search-query"/>
+
+            </div>
+        </div>
+        <div class="col-sm-3">
+            <!-- <a href="#" data-toggle="collapse" data-target="#toggleDemo">[-] Advanced Search</a> -->
+            <button type="button" class="btn btn-info" id="click"> [-] Advanced Search</button>
+        </div>
+    </div>
+</form>
+<div class="container" style="border:1px solid grey;width:1100px">
+    <div class="collapse" id="toggleDemo">
+        <form role="form" class="form-horizontal">
+            <div class="form-group" style="border:1px solid grey;background-color:white">
+                <button type="button" class="close" aria-label="Close" id="hide"><span aria-hidden="true">&times;</span>
+                </button>
+                <label>Advanced Search</label>
+            </div>
+            <div class="form-group">
+                <div class="col-sm-2"><label>Member First Name</label><input type="text"/></div>
+                <div class="col-sm-2"><label>Member Last Name</label><input type="text"/></div>
+                <div class="col-sm-2"><label>Member Primary ID</label><input type="text"/></div>
+                <div class="col-sm-2"><label>Member SSN</label><input type="text"/></div>
+            </div>
+            <div class="form-group">
+                <div class="col-sm-2"><label>City</label><input type="text"></div>
+                <div class="col-sm-2">
+                    <label>State</label>
+
+                    <div>
+                        <select name="state" class="input-sm"
+                                data-bind="options:availableStates,optionsText: 'Name',optionsValue: 'Value'"></select>
+                    </div>
+                </div>
+                <div class="col-sm-2"><label>ZipCode</label><input type="text"></div>
+                <div class="col-sm-3 checkbox">
+                    <label><input type="checkbox" value="" checked="checked"/>Show all data</label>
+                    <label><input type="checkbox" value=""/>Show data with no exception</label>
+                    <label><input type="checkbox" value=""/>Show data with address exception</label>
+                    <label><input type="checkbox" value=""/>Show data with other exception</label>
+                    <label><input type="checkbox" value=""/>Show fund excluded data</label>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-sm-3">
+
+                </div>
+                <div class="col-sm-3">
+                    <button type="submit" class="btn btn-success">Search</button>
+                    &nbsp;
+                    <button type="submit" class="btn btn-danger ">Clear</button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+<form role="form" class="form-horizontal" style="width:1070px;margin-left:35px;margin-top:5px">
+<div class="form-group" style="color:white;border:1px solid grey;background-color:#6699FF">
+    <div class="col-sm-6">
+        <label>Member Details for the Tax Year 2015</label>
+    </div>
+</div>
+<div class="form-group">
+    <div class="col-sm-3 pull-left">
+        <select id="count" name="Show" class="input-sm"
+                data-bind="options: availableShowCount,optionsText: 'Name',optionsValue: 'Value',event:{change: showCount}"></select>
+    </div>
+    <div class="col-sm-3 pull-left">
+        <label>Total Members - 2500</label>
+    </div>
+    <div class="col-sm-3 pull-right">
+        <div class="col-sm-2 pull-right">
+            <button type="submit" class="glyphicon glyphicon-cog"/>
+        </div>
+        <div class="col-sm-2 pull-right">
+            <button type="submit" class="glyphicon glyphicon-export"/>
+        </div>
+        <div class="col-sm-2 pull-right">
+            <button type="submit" class="glyphicon glyphicon-print"/>
+        </div>
+    </div>
+</div>
+
+<div class="form-group">
+    <div class="">
+        <div class="row">
+            <div class="panel panel-default ExcludeorPreview">
+                <div id="myModal" class="modal fade" role="dialog">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <button type="button" class="close" data-dismiss="modal"
+                                        aria-hidden="true">&times;</button>
+                                <h4 class="modal-title">Exclude from Batch</h4>
+                            </div>
+                            <div class="modal-body">
+                                <form role="form" class="form-horizontal">
+                                    <div class="container form-group">
+                                        <label class="col-sm-2">Member Name</label>
+                                        <label class="col-sm-2">Primary ID</label>
+                                    </div>
+                                    <div class="container form-group" style="font-size:10px">
+                                        <label class="col-sm-2" data-bind="text: modalPerson.memberName"></label>
+                                        <label class="col-sm-2" data-bind="text: modalPerson.primaryID"></label>
+                                    </div>
+                                    <div class="container form-group">
+                                        <label class="col-sm-2">Reason for Exclusion</label>
+                                    </div>
+                                    <div class="container form-group">
+                                        <textarea class="col-sm-3" rows="5" cols="50"></textarea>
+                                    </div>
+                                </form>
+                            </div>
+                            <div class="modal-footer">
+                                <div class="col-sm-3">
+                                    <button type="button" class="btn btn-success">Save</button>
+                                </div>
+                                <div class="col-sm-3">
+                                    <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div id="table">
+                    <table class="table table-fixed">
+                        <thead>
+                        <tr class="active" style="font-size:10px">
+                            <th class="col-sm-2">Member Names</th>
+                            <th class="col-sm-1">Primary ID</th>
+                            <th class="col-sm-1">SSN</th>
+                            <th class="col-sm-1">DOB</th>
+                            <th class="col-sm-1">Address Line1</th>
+                            <th class="col-sm-1">Address Line2</th>
+                            <th class="col-sm-1">City</th>
+                            <th class="col-sm-1">State</th>
+                            <th class="col-sm-1">Zipcode</th>
+                            <th class="col-sm-2">Action</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr style="font-size:10px">
+                            <td class="col-sm-2">Daniel Weber</td>
+                            <td class="col-sm-1">XYZ09988</td>
+                            <td class="col-sm-1">XXX-XX-1852</td>
+                            <td class="col-sm-1">12/10/1982</td>
+                            <td class="col-sm-1">58 Maples Aye</td>
+                            <td class="col-sm-0.5"></td>
+                            <td class="col-sm-1">Manhattan</td>
+                            <td class="col-sm-1">NY</td>
+                            <td class="col-sm-1">10001</td>
+                            <td class="col-sm-2">
+                                <select class="logView">
+                                    <option value="Print">Print 1095-B</option>
+                                    <option value="ViewLog">View Log</option>
+                                </select>
+                            </td>
+                        </tr>
+                        <tr style="font-size:10px">
+                            <td class="col-sm-2">Daniel Weber</td>
+                            <td class="col-sm-1">XYZ09988</td>
+                            <td class="col-sm-1">XXX-XX-1852</td>
+                            <td class="col-sm-1">12/10/1982</td>
+                            <td class="col-sm-1">58 Maples Aye</td>
+                            <td class="col-sm-0.5"></td>
+                            <td class="col-sm-1">Manhattan</td>
+                            <td class="col-sm-1">NY</td>
+                            <td class="col-sm-1">10001</td>
+                            <td class="col-sm-2">
+                                <select class="logView">
+                                    <option value="Print">Print 1095-B</option>
+                                    <option value="ViewLog">View Log</option>
+                                </select>
+                            </td>
+                        </tr>
+                        <tr style="font-size:10px">
+                            <td class="col-sm-2">Daniel Weber</td>
+                            <td class="col-sm-1">XYZ09988</td>
+                            <td class="col-sm-1">XXX-XX-1852</td>
+                            <td class="col-sm-1">12/10/1982</td>
+                            <td class="col-sm-1">58 Maples Aye</td>
+                            <td class="col-sm-0.5"></td>
+                            <td class="col-sm-1">Manhattan</td>
+                            <td class="col-sm-1">NY</td>
+                            <td class="col-sm-1">10001</td>
+                            <td class="col-sm-2">
+                                <select class="logView">
+                                    <option value="Print">Print 1095-B</option>
+                                    <option value="ViewLog">View Log</option>
+                                </select>
+                            </td>
+                        </tr>
+                        <tr style="font-size:10px">
+                            <td class="col-sm-2">Daniel Weber</td>
+                            <td class="col-sm-1">XYZ09988</td>
+                            <td class="col-sm-1">XXX-XX-1852</td>
+                            <td class="col-sm-1">12/10/1982</td>
+                            <td class="col-sm-1">58 Maples Aye</td>
+                            <td class="col-sm-0.5"></td>
+                            <td class="col-sm-1">Manhattan</td>
+                            <td class="col-sm-1">NY</td>
+                            <td class="col-sm-1">10001</td>
+                            <td class="col-sm-2">
+                                <select class="logView">
+                                    <option value="Print">Print 1095-B</option>
+                                    <option value="ViewLog">View Log</option>
+                                </select>
+                            </td>
+                        </tr>
+                        <tr style="font-size:10px">
+                            <td class="col-sm-2">Daniel Weber</td>
+                            <td class="col-sm-1">XYZ09988</td>
+                            <td class="col-sm-1">XXX-XX-1852</td>
+                            <td class="col-sm-1">12/10/1982</td>
+                            <td class="col-sm-1">58 Maples Aye</td>
+                            <td class="col-sm-0.5"></td>
+                            <td class="col-sm-1">Manhattan</td>
+                            <td class="col-sm-1">NY</td>
+                            <td class="col-sm-1">10001</td>
+                            <td class="col-sm-2">
+                                <select class="logView">
+                                    <option value="Print">Print 1095-B</option>
+                                    <option value="ViewLog">View Log</option>
+                                </select>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+<div class="form-group">
+    <div class="tabs">
+        <ul class="nav nav-tabs">
+            <li class="active"><a data-toggle="tab" href="#sectionA">Health Coverage Details(2015) -For John Doe &
+                Family</a></li>
+            <li><a data-toggle="tab" href="#sectionB">Dependant Details</a></li>
+        </ul>
+        <div class="tab-content">
+            <div id="sectionA" class="tab-pane fade in active">
+                <div class="panel panel-default">
+                    <table class="table table-bordered">
+                        <thead>
+                        <tr class="active" style="font-size:10px">
+                            <th class="col-sm-2">Member\Dependant</th>
+                            <th class="col-sm-1">Name</th>
+                            <th class="col-sm-1.1">Covered All 12 Months</th>
+                            <th class="col-sm-0.5">Jan</th>
+                            <th class="col-sm-0.5">Feb</th>
+                            <th class="col-sm-0.5">Mar</th>
+                            <th class="col-sm-0.5">Apr</th>
+                            <th class="col-sm-0.5">May</th>
+                            <th class="col-sm-0.5">Jun</th>
+                            <th class="col-sm-0.5">Jul</th>
+                            <th class="col-sm-0.5">Aug</th>
+                            <th class="col-sm-0.5">Sep</th>
+                            <th class="col-sm-0.5">Oct</th>
+                            <th class="col-sm-0.5">Nov</th>
+                            <th class="col-sm-0.5">Dec</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr style="font-size:10px;">
+                            <td class="col-sm-2">Member</td>
+                            <td class="col-sm-1">John Doe</td>
+                            <td class="col-sm-1.1"></td>
+                            <td class="col-sm-0.5"></td>
+                            <td class="col-sm-0.5"><span class="glyphicon glyphicon-ok" style="color:green"></span></td>
+                            <td class="col-sm-0.5"><span class="glyphicon glyphicon-ok" style="color:green"></span></td>
+                            <td class="col-sm-0.5"><span class="glyphicon glyphicon-ok" style="color:green"></span></td>
+                            <td class="col-sm-0.5"></td>
+                            <td class="col-sm-0.5"></td>
+                            <td class="col-sm-0.5"></td>
+                            <td class="col-sm-0.5"></td>
+                            <td class="col-sm-0.5"></td>
+                            <td class="col-sm-0.5"></td>
+                            <td class="col-sm-0.5"></td>
+                            <td class="col-sm-0.5"></td>
+                        </tr>
+                        <tr style="font-size:10px;">
+                            <td class="col-sm-2">Dependant</td>
+                            <td class="col-sm-1">John Doe</td>
+                            <td class="col-sm-1.1"></td>
+                            <td class="col-sm-0.5"></td>
+                            <td class="col-sm-0.5"><span class="glyphicon glyphicon-ok" style="color:green"></span></td>
+                            <td class="col-sm-0.5"><span class="glyphicon glyphicon-ok" style="color:green"></span></td>
+                            <td class="col-sm-0.5"><span class="glyphicon glyphicon-ok" style="color:green"></span></td>
+                            <td class="col-sm-0.5"></td>
+                            <td class="col-sm-0.5"></td>
+                            <td class="col-sm-0.5"></td>
+                            <td class="col-sm-0.5"></td>
+                            <td class="col-sm-0.5"></td>
+                            <td class="col-sm-0.5"></td>
+                            <td class="col-sm-0.5"></td>
+                            <td class="col-sm-0.5"></td>
+                        </tr>
+                        <tr style="font-size:10px;">
+                            <td class="col-sm-2">Dependant</td>
+                            <td class="col-sm-1">Jimmy Doe</td>
+                            <td class="col-sm-1.1"></td>
+                            <td class="col-sm-0.5"></td>
+                            <td class="col-sm-0.5"><span class="glyphicon glyphicon-ok" style="color:green"></span></td>
+                            <td class="col-sm-0.5"><span class="glyphicon glyphicon-ok" style="color:green"></span></td>
+                            <td class="col-sm-0.5"><span class="glyphicon glyphicon-ok" style="color:green"></span></td>
+                            <td class="col-sm-0.5"></td>
+                            <td class="col-sm-0.5"></td>
+                            <td class="col-sm-0.5"></td>
+                            <td class="col-sm-0.5"></td>
+                            <td class="col-sm-0.5"></td>
+                            <td class="col-sm-0.5"></td>
+                            <td class="col-sm-0.5"></td>
+                            <td class="col-sm-0.5"></td>
+                        </tr>
+                        <tr style="font-size:10px;">
+                            <td class="col-sm-2">Dependant</td>
+                            <td class="col-sm-1">Jessy Doe</td>
+                            <td class="col-sm-1.1"></td>
+                            <td class="col-sm-0.5"></td>
+                            <td class="col-sm-0.5"><span class="glyphicon glyphicon-ok" style="color:green"></span></td>
+                            <td class="col-sm-0.5"><span class="glyphicon glyphicon-ok" style="color:green"></span></td>
+                            <td class="col-sm-0.5"><span class="glyphicon glyphicon-ok" style="color:green"></span></td>
+                            <td class="col-sm-0.5"></td>
+                            <td class="col-sm-0.5"></td>
+                            <td class="col-sm-0.5"></td>
+                            <td class="col-sm-0.5"></td>
+                            <td class="col-sm-0.5"></td>
+                            <td class="col-sm-0.5"></td>
+                            <td class="col-sm-0.5"></td>
+                            <td class="col-sm-0.5"></td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+            <div id="sectionB" class="tab-pane fade">
+                <div class="panel panel-default">
+                    <table class="table table-bordered">
+                        <thead>
+                        <tr class="active" style="font-size:10px">
+                            <th class="col-sm-2">Dependant Name</th>
+                            <th class="col-sm-2">SSN</th>
+                            <th class="col-sm-2">DOB</th>
+                            <th class="col-sm-2">Other Exception Comments</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr style="font-size:10px;">
+                            <td class="col-sm-2">Jane Doe</td>
+                            <td class="col-sm-2"></td>
+                            <td class="col-sm-2"></td>
+                            <td class="col-sm-2"></td>
+                        </tr>
+                        <tr style="font-size:10px;">
+                            <td class="col-sm-2">Jimmy Doe</td>
+                            <td class="col-sm-2">xxx-xx-2222</td>
+                            <td class="col-sm-2">7/16/2000</td>
+                            <td class="col-sm-2"></td>
+                        </tr>
+                        <tr style="font-size:10px;">
+                            <td class="col-sm-2">Jessy Doe</td>
+                            <td class="col-sm-2">xxx-xx-3333</td>
+                            <td class="col-sm-2">8/12/2004</td>
+                            <td class="col-sm-2"></td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="form-group">
+    <div class="col-sm-5 pull-right">
+        <button class="btn btn-success">Verify Address & validate Data</button>
+    </div>
+</div>
+<div class="form-group">
+
+    <div class="col-sm-3 pull-right">
+        <button class="btn btn-success" disabled="disabled">Create Batch</button>
+    </div>
+    <div class="col-sm-3 pull-right">
+        <label><input type="checkbox" value="" disabled="disabled"/> Ignore All Address Exceptions </label>
+    </div>
+</div>
+
+</form>
+
+</div>
+</body>
+</html>

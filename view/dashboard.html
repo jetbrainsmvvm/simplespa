@@ -1,0 +1,64 @@
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head>
+    <title>Novus MEC Reporting</title>
+    <meta charset="utf-8">
+    <link rel="stylesheet" href="../css/bootstrap.min.css">
+    <link href="../css/Site.css" rel="stylesheet">
+
+    <script src="../js/lib/jquery.min.js"></script>
+    <script src="../js/lib/bootstrap.min.js"></script>
+    <script type="text/javascript" src="../js/lib/knockout-3.1.0.js"></script>
+    <script type="text/javascript" src="../js/Index.js"></script>
+</head>
+<body>
+    <div id="top">
+        <div class="nav navbar pull-left">
+            <p style="font-size:20px;">Reporting Minimum Essential Coverage</p>
+        </div>
+        <div class="nav navbar pull-right">
+            Mr.John Doe <button class="glyphicon glyphicon-off" onclick="location.href='../authentication.html'"></button>
+        </div>
+    </div>
+    <div id="main">
+        <div class="tab">
+            <table class="table">
+                <tbody><tr style="background-color:#edf0f5;text-align:center"><td width="10%"><a href="#">Home</a></td><td width="10%"><a href="#">1095-B</a></td><td width="10%"><a href="#">1095-C</a></td></tr>
+            </tbody></table>
+        </div>
+
+        <table class="table">
+            <tbody><tr style="background-color:white;text-align:center">
+                <td width="10%"></td>
+                <td width="10%">
+				<a href="createBatch.html">Create Batch</a><br>
+				<a href="viewBatch.html">View Created batch</a><br>
+				<a href="generateIRSFile.html">Generate IRS File</a></td>
+                <td width="10%"><a href="#">Create Batch</a><br><a href="#">View Created batch</a><br><a href="#">Generate IRS File</a></td>
+            </tr>
+        </tbody></table>
+    </div>
+    <div class="container" style="border:1px solid grey">
+        <form role="form" class="form-horizontal">
+            <div class="form-group" style="color:white;border:1px solid grey;background-color:#3366FF">
+                <div class="col-sm-3">
+                    <label>Dashboard</label>
+                </div>				
+            </div>
+            <h3 class="text-center">Dashboard Main</h3>
+            <div class="col-md-12">
+				<div class="row">
+					<div class="col-md-6">
+						<div class="row">
+								<a class="underline" href="coveredIndividual.html">Covered Individual - Tax Year 2015</a>
+						</div>
+					</div>
+					<div class="col-md-6">
+						<div class="row">
+								<a class="underline" href="coveredIndividual.html">Previous Year 2014 Reporting</a>
+						</div>
+					</div>
+				</div>
+			</div>
+        </form>
+    </div>
+</body>
+</html>
